@@ -33,6 +33,7 @@
     // Present the scene
     [skView presentScene:sceneNode];
     
+    //Mostrar FPS y nodos
     skView.showsFPS = NO;
     skView.showsNodeCount = NO;
 }

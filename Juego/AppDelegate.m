@@ -7,13 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "GameScene.h"
+#import "GameData.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

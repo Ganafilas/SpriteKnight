@@ -10,7 +10,6 @@
 
 @implementation GameData
 
-
 static NSUserDefaults *partida;
 static long vida;
 static long monedas;
@@ -39,13 +38,11 @@ static NSString* escena;
 }
 
 +(void)guardarVida:(long)vida yMonedas:(long)monedas yEscena:(NSString *)escena{
-    
     partida = [NSUserDefaults standardUserDefaults];
     [partida setInteger:monedas forKey:@"monedas"];
     [partida setInteger:vida forKey:@"vida"];
     [partida setObject:escena forKey:@"escena"];
     [partida synchronize];
-    
 }
 
 @end

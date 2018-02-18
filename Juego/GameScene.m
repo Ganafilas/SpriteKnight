@@ -12,8 +12,6 @@
 
 @implementation GameScene
 
-
-
     SKAction* mover;
     float velocidadMovimientoPersonajeCaballero = 2.0f;
 
@@ -72,11 +70,8 @@
     bool estoyQuieto;
     bool estoyTransformado;
     bool estoyVivo;
-    
 
     int precioObjeto = 0;
-
-
 
     //Para el tema de las colisiones
     int personajeCategoria = 1;
@@ -93,18 +88,17 @@
     [self creaLasColisiones];
     [self inicializaLosBooleanos];
     [self cargarTodasLasAnimaciones];
-     [self addMonster];
-    
+    [self addMonster];
     
     //Sonará de fondo la música
-    [self runAction:[SKAction playSoundFileNamed:@"Night-in-the-forest.wav" waitForCompletion:NO]];
-    
-    
+    //[self runAction:[SKAction playSoundFileNamed:@"Night-in-the-forest.wav" waitForCompletion:NO]];
 }
 
 
 -(void)enganchaReferenciasDeAquiConLasDeLaEscena{
+    //El personaje
     _personaje = (SKSpriteNode*) [self childNodeWithName:@"personaje"];
+    //Corazones de vida
     _corazon1 = (SKSpriteNode*) [self childNodeWithName:@"//corazon1"];
     _corazon2 = (SKSpriteNode*) [self childNodeWithName:@"//corazon2"];
     _corazon3 = (SKSpriteNode*) [self childNodeWithName:@"//corazon3"];
@@ -112,10 +106,12 @@
     _tienda = (SKSpriteNode*) [self childNodeWithName:@"Tienda"]; //La tienda
     _entrarTienda = (SKSpriteNode*) [self childNodeWithName:@"//EntrarTienda"]; //Botón para entrar a la tienda
     _menuTienda = (SKSpriteNode*) [self childNodeWithName:@"//MenuTienda"]; //El menu de la propia tienda
-    _audioTienda = (SKAudioNode*) [self childNodeWithName:@"//AudioTienda"]; //El emisor de audio para la tienda
-    
-    //
+    //Guardar y salir
+    _guardarYSalir = (SKSpriteNode*) [self childNodeWithName:@"//GuardarYSalir"];
+    _guardarYSalir.hidden = true;
+    //Cámara
     _camara = (SKCameraNode*) [self childNodeWithName:@"camara"];
+    //Monedas
     _labelMonedas = (UILabel*) [self childNodeWithName:@"//monedas"];
 }
 
@@ -313,7 +309,7 @@
     }
     
     saltar = [SKAction moveByX:0 y:200 duration:0.6];
-    [self runAction:[SKAction playSoundFileNamed:@"Jump.wav" waitForCompletion:NO]];
+ //   [self runAction:[SKAction playSoundFileNamed:@"Jump.wav" waitForCompletion:NO]];
     [_personaje  runAction:saltar];
 }
 
@@ -481,13 +477,13 @@
     
     _labelMonedas.text = [NSString stringWithFormat:@"%ld",_monedas];
 
-    
     //La cámara seguirá al jugador en todo momento
     [self camaraSigueme];
     
     [self sigueAlJugador:_monstruo1];
     [self sigueAlJugador:_monstruo2];
     
+    //Si estamos apretando algun boton
     if(estoyApretando){
         [ _personaje runAction:mover];
     }
@@ -567,7 +563,7 @@
     if (!_entrarTienda.hidden && [touchedNode.name isEqualToString:@"EntrarTienda"] && estoyVivo) {
         _menuTienda.hidden = false;
         //Se escuchará el sonidito de entrar
-        [self runAction:[SKAction playSoundFileNamed:@"EntrarTienda.wav" waitForCompletion:NO]];
+       // [self runAction:[SKAction playSoundFileNamed:@"EntrarTienda.wav" waitForCompletion:NO]];
     } else if (![touchedNode.name isEqualToString:@"EntrarTienda"]) {
         //Si pulsamos sobre los objetos de la tienda esta NO se cerrará
         if ([touchedNode.name containsString:@"Comprar"]) {
@@ -581,6 +577,29 @@
         
       
         
+    }
+    
+    if ([touchedNode.name isEqualToString:@"Options"] && estoyVivo){
+        [self pausaElJuego];
+    } else if (![touchedNode.name isEqualToString:@"GuardarYSalir"] && ![touchedNode.name isEqualToString:@"Options"]) {
+        self.paused = false;
+        _guardarYSalir.hidden = true;
+    }
+    
+    //Método en el que si pulsamos la opción de "guardar y salir" saldremos del juego y guardaremos los datos
+    if ([touchedNode.name isEqualToString:@"GuardarYSalir"]) {
+        [self guardar];
+        exit(0);
+    }
+}
+
+- (void)pausaElJuego {
+    //Se pausará el juego y entrará en acción el menú de configuración básico
+    self.paused = true;
+    _guardarYSalir.hidden = false;
+    //Si la tienda estuviera abierta, se cerraría (vamos, ocultarla)
+    if (!_menuTienda.hidden) {
+        _menuTienda.hidden = true;
     }
 }
 
@@ -697,12 +716,7 @@
 }
 
 -(void)guardar{
-    
-    
     [GameData guardarVida:_vida yMonedas:_monedas yEscena:@"GameScene"];
-    
-    
-    
 }
 
 @end

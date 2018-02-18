@@ -23,6 +23,9 @@
 @property (nonatomic) SKSpriteNode* entrarTienda; //Botón de dólar para comprar
 @property (nonatomic) SKSpriteNode* menuTienda; //La propia tienda
 @property (nonatomic) SKAudioNode* audioTienda; //Audios para abrir y cerrar la tienda
+//
+
+@property (nonatomic) SKSpriteNode* guardarYSalir;
 
 @property (nonatomic) SKSpriteNode* corazon1;
 @property (nonatomic) SKSpriteNode* corazon2;
@@ -45,6 +48,7 @@
 - (void)transformacion;
 - (void)sigueAlJugador:(SKSpriteNode*)objeto;
 - (void)addMonster ;
+- (void)pausaElJuego;
 - (void)muevete:(CGPoint)touchedPoint ;
 - (void)parar;
 - (void)camaraSigueme;

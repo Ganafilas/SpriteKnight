@@ -31,10 +31,6 @@
 		FB89A3EA20385D8500F91F57 /* GameMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89A3E920385D8500F91F57 /* GameMenuController.m */; };
 		FB89A3EF20385F6500F91F57 /* GameMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89A3EE20385F6500F91F57 /* GameMenu.m */; };
 		FB89A3F72038634900F91F57 /* Menu.sks in Resources */ = {isa = PBXBuildFile; fileRef = FB89A3F62038634900F91F57 /* Menu.sks */; };
-		FB97D555203606A0003DF06C /* Jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB97D554203606A0003DF06C /* Jump.wav */; };
-		FB97D557203608A0003DF06C /* Night-in-the-forest.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB97D556203608A0003DF06C /* Night-in-the-forest.wav */; };
-		FBAD1D8720342DD600687098 /* CerrarTienda.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBAD1D8520342DD500687098 /* CerrarTienda.wav */; };
-		FBAD1D8820342DD600687098 /* EntrarTienda.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBAD1D8620342DD500687098 /* EntrarTienda.wav */; };
 		FBAFEE8220276F39005419F0 /* animationsAtackKnight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBAFEE8120276F39005419F0 /* animationsAtackKnight.atlas */; };
 		FBAFEE8420276FA7005419F0 /* animationsDeadKnight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBAFEE8320276FA7005419F0 /* animationsDeadKnight.atlas */; };
 		FBCE08D3201D0D9E00C7D3EE /* animations.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBCE08D2201D0D9E00C7D3EE /* animations.atlas */; };
@@ -94,10 +90,6 @@
 		FB89A3ED20385F6500F91F57 /* GameMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMenu.h; sourceTree = "<group>"; };
 		FB89A3EE20385F6500F91F57 /* GameMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameMenu.m; sourceTree = "<group>"; };
 		FB89A3F62038634900F91F57 /* Menu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Menu.sks; sourceTree = "<group>"; };
-		FB97D554203606A0003DF06C /* Jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Jump.wav; sourceTree = "<group>"; };
-		FB97D556203608A0003DF06C /* Night-in-the-forest.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Night-in-the-forest.wav"; sourceTree = "<group>"; };
-		FBAD1D8520342DD500687098 /* CerrarTienda.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CerrarTienda.wav; sourceTree = "<group>"; };
-		FBAD1D8620342DD500687098 /* EntrarTienda.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = EntrarTienda.wav; sourceTree = "<group>"; };
 		FBAFEE8120276F39005419F0 /* animationsAtackKnight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animationsAtackKnight.atlas; sourceTree = "<group>"; };
 		FBAFEE8320276FA7005419F0 /* animationsDeadKnight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animationsDeadKnight.atlas; sourceTree = "<group>"; };
 		FBCE08D2201D0D9E00C7D3EE /* animations.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animations.atlas; sourceTree = "<group>"; };
@@ -163,10 +155,6 @@
 				FB2E52332025FF5300CF76E5 /* animationsIdleKnight.atlas */,
 				FB2E522F2025FA8B00CF76E5 /* animationsJumpKnight.atlas */,
 				FBCE08D2201D0D9E00C7D3EE /* animations.atlas */,
-				FBAD1D8520342DD500687098 /* CerrarTienda.wav */,
-				FBAD1D8620342DD500687098 /* EntrarTienda.wav */,
-				FB97D554203606A0003DF06C /* Jump.wav */,
-				FB97D556203608A0003DF06C /* Night-in-the-forest.wav */,
 				FB81F180201883DD006AA209 /* AppDelegate.h */,
 				FB81F181201883DD006AA209 /* AppDelegate.m */,
 				FB81F183201883DD006AA209 /* GameScene.sks */,
@@ -320,11 +308,9 @@
 				FB6425FA202B42810096D2EF /* animationsLichIdle.atlas in Resources */,
 				FB78FC542026568300D26A4F /* animationsKnightTransformation.atlas in Resources */,
 				FB89A3F72038634900F91F57 /* Menu.sks in Resources */,
-				FBAD1D8720342DD600687098 /* CerrarTienda.wav in Resources */,
 				FB81F184201883DD006AA209 /* GameScene.sks in Resources */,
 				FB1FA864202AEAD1009A7DDB /* animationsLichTransformation.atlas in Resources */,
 				FBCE08D3201D0D9E00C7D3EE /* animations.atlas in Resources */,
-				FBAD1D8820342DD600687098 /* EntrarTienda.wav in Resources */,
 				FB78FC582026670F00D26A4F /* animationsFishing.atlas in Resources */,
 				FB78FC56202660B300D26A4F /* animationsCampfire.atlas in Resources */,
 				FB81F191201883DD006AA209 /* Assets.xcassets in Resources */,
@@ -332,8 +318,6 @@
 				FB81F186201883DD006AA209 /* Actions.sks in Resources */,
 				FB642601202B45FC0096D2EF /* animationsLichAtack.atlas in Resources */,
 				FB1FA862202AE5E4009A7DDB /* animationsLichRun.atlas in Resources */,
-				FB97D555203606A0003DF06C /* Jump.wav in Resources */,
-				FB97D557203608A0003DF06C /* Night-in-the-forest.wav in Resources */,
 				FBAFEE8420276FA7005419F0 /* animationsDeadKnight.atlas in Resources */,
 				FB2E52342025FF5300CF76E5 /* animationsIdleKnight.atlas in Resources */,
 				FBAFEE8220276F39005419F0 /* animationsAtackKnight.atlas in Resources */,
