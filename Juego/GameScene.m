@@ -591,6 +591,7 @@
         [self guardar];
         exit(0);
     }
+    
 }
 
 - (void)pausaElJuego {
