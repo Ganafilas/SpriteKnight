@@ -31,6 +31,7 @@
 		FB89A3EA20385D8500F91F57 /* GameMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89A3E920385D8500F91F57 /* GameMenuController.m */; };
 		FB89A3EF20385F6500F91F57 /* GameMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89A3EE20385F6500F91F57 /* GameMenu.m */; };
 		FB89A3F72038634900F91F57 /* Menu.sks in Resources */ = {isa = PBXBuildFile; fileRef = FB89A3F62038634900F91F57 /* Menu.sks */; };
+		FB9EF76A203D6E0500A419B1 /* GameScene_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = FB9EF769203D6E0500A419B1 /* GameScene_2.sks */; };
 		FBAFEE8220276F39005419F0 /* animationsAtackKnight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBAFEE8120276F39005419F0 /* animationsAtackKnight.atlas */; };
 		FBAFEE8420276FA7005419F0 /* animationsDeadKnight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBAFEE8320276FA7005419F0 /* animationsDeadKnight.atlas */; };
 		FBCE08D3201D0D9E00C7D3EE /* animations.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBCE08D2201D0D9E00C7D3EE /* animations.atlas */; };
@@ -90,6 +91,7 @@
 		FB89A3ED20385F6500F91F57 /* GameMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMenu.h; sourceTree = "<group>"; };
 		FB89A3EE20385F6500F91F57 /* GameMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameMenu.m; sourceTree = "<group>"; };
 		FB89A3F62038634900F91F57 /* Menu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Menu.sks; sourceTree = "<group>"; };
+		FB9EF769203D6E0500A419B1 /* GameScene_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene_2.sks; sourceTree = "<group>"; };
 		FBAFEE8120276F39005419F0 /* animationsAtackKnight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animationsAtackKnight.atlas; sourceTree = "<group>"; };
 		FBAFEE8320276FA7005419F0 /* animationsDeadKnight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animationsDeadKnight.atlas; sourceTree = "<group>"; };
 		FBCE08D2201D0D9E00C7D3EE /* animations.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animations.atlas; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				FB81F180201883DD006AA209 /* AppDelegate.h */,
 				FB81F181201883DD006AA209 /* AppDelegate.m */,
 				FB81F183201883DD006AA209 /* GameScene.sks */,
+				FB9EF769203D6E0500A419B1 /* GameScene_2.sks */,
 				FB81F185201883DD006AA209 /* Actions.sks */,
 				FB81F187201883DD006AA209 /* GameScene.h */,
 				FB81F188201883DD006AA209 /* GameScene.m */,
@@ -306,6 +309,7 @@
 				FB81F18F201883DD006AA209 /* Main.storyboard in Resources */,
 				FB2E52302025FA8B00CF76E5 /* animationsJumpKnight.atlas in Resources */,
 				FB6425FA202B42810096D2EF /* animationsLichIdle.atlas in Resources */,
+				FB9EF76A203D6E0500A419B1 /* GameScene_2.sks in Resources */,
 				FB78FC542026568300D26A4F /* animationsKnightTransformation.atlas in Resources */,
 				FB89A3F72038634900F91F57 /* Menu.sks in Resources */,
 				FB81F184201883DD006AA209 /* GameScene.sks in Resources */,

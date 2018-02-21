@@ -9,7 +9,6 @@
 #import "GameScene.h"
 #import "GameData.h"
 
-
 @implementation GameScene
 
     SKAction* mover;
@@ -83,6 +82,8 @@
     CGFloat orientacionDelMonstruo=1;
 
 - (void)sceneDidLoad {
+    
+    NSLog(@"%@", self.scene.name);
     
     [self enganchaReferenciasDeAquiConLasDeLaEscena];
     [self creaLasColisiones];
@@ -555,8 +556,6 @@
       
         estoyQuieto = false;
         [self saltar];
-        [self guardar];
-       
     }
     
     //Si el botón para entrar a la tienda está visible, podremos pulsar en él para comprar
@@ -573,12 +572,7 @@
         }
     }
     
-    if ([touchedNode.name isEqualToString:@"arbol"] && estoyVivo){
-        
-      
-        
-    }
-    
+    //Si pulsas en la ruedecita, se abrirán las opciones
     if ([touchedNode.name isEqualToString:@"Options"] && estoyVivo){
         [self pausaElJuego];
     } else if (![touchedNode.name isEqualToString:@"GuardarYSalir"] && ![touchedNode.name isEqualToString:@"Options"]) {
@@ -591,7 +585,6 @@
         [self guardar];
         exit(0);
     }
-    
 }
 
 - (void)pausaElJuego {
@@ -659,7 +652,6 @@
 }
 
 - (void)addMonster {
-    
     _monstruo1 = [SKSpriteNode spriteNodeWithImageNamed:@"monster"];
     _monstruo1.size = CGSizeMake(70, 57);
     _monstruo1.physicsBody = [SKPhysicsBody bodyWithTexture:_monstruo1.texture size:CGSizeMake(_monstruo1.size.width, _monstruo1.size.height)];
@@ -698,7 +690,6 @@
     _monstruo2.zPosition = 1;
     _monstruo2.position = CGPointMake(_camara.position.x+40, 1);
     [self addChild:_monstruo2];
-    
 }
 
 -(void)sigueAlJugador:(SKSpriteNode*)objeto{
@@ -717,7 +708,22 @@
 }
 
 -(void)guardar{
-    [GameData guardarVida:_vida yMonedas:_monedas yEscena:@"GameScene"];
+    [GameData guardarVida:_vida yMonedas:_monedas yEscena:self.scene.name];
+}
+
+-(void)pasarDeEscena {
+    GKScene *scene = [GKScene sceneWithFileNamed:@"GameScene_2"];
+    GameScene *sceneNode = (GameScene*)scene.rootNode;
+    sceneNode.scaleMode = SKSceneScaleModeAspectFill;
+    
+    SKView *skView = (SKView *)self.view;
+    
+    sceneNode.monedas = [self monedas];
+    sceneNode.vida =  [self vida];
+    
+    skView.showsFPS = true;
+    
+    [skView presentScene:sceneNode];
 }
 
 @end

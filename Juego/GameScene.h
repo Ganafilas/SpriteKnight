@@ -40,11 +40,6 @@
 @property (nonatomic) long monedas;
 @property  (nonatomic) long vida;
 
- 
-
-
-
-
 - (void)transformacion;
 - (void)sigueAlJugador:(SKSpriteNode*)objeto;
 - (void)addMonster ;
@@ -62,6 +57,5 @@
 - (void)creaLasColisiones;
 - (void)cargarTodasLasAnimaciones;
 - (void)enganchaReferenciasDeAquiConLasDeLaEscena;
-
 
 @end

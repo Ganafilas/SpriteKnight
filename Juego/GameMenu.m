@@ -14,8 +14,8 @@
 @implementation GameMenu
 
 - (void)sceneDidLoad {
-    
-   
+    //Referenciamos el botón del mensaje
+    _message = (SKLabelNode*) [self childNodeWithName:@"Message"];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -40,7 +40,7 @@
         [skView presentScene:sceneNode];
     }
     
-    if ([touchedNode.name isEqualToString:@"cargarPartida"]) {
+    if ([touchedNode.name isEqualToString:@"cargarPartida"] && [GameData obtenerEscena] != nil){
         GKScene *scene = [GKScene sceneWithFileNamed:[GameData obtenerEscena]];
         GameScene *sceneNode = (GameScene *)scene.rootNode;
         sceneNode.scaleMode = SKSceneScaleModeAspectFill;
@@ -55,6 +55,8 @@
         skView.showsFPS = true;
         
         [skView presentScene:sceneNode];
+    } else if ([GameData obtenerEscena] != nil) { //Si no hay escena guardada que muestre la info
+        _message.text = @"NO HAY PARTIDAAAAAAA";
     }
 }
 

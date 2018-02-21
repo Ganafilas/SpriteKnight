@@ -11,6 +11,6 @@
 
 @interface GameMenu : SKScene
 
-
+@property (nonatomic) SKLabelNode* message;
 
 @end
