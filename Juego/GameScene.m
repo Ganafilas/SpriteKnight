@@ -69,6 +69,9 @@
     bool estoyQuieto;
     bool estoyTransformado;
     bool estoyVivo;
+    bool bicho1Muerto;
+    bool puedoPerderVida;
+
 
     int precioObjeto = 0;
 
@@ -76,7 +79,7 @@
     int personajeCategoria = 1;
     int mundoCategoria = 2;
     int monstruoCategoria = 3;
-    int tiendaCategoria = 5;
+     
 
     CGFloat orientacionDelPersonaje=1;
     CGFloat orientacionDelMonstruo=1;
@@ -104,17 +107,23 @@
     _corazon2 = (SKSpriteNode*) [self childNodeWithName:@"//corazon2"];
     _corazon3 = (SKSpriteNode*) [self childNodeWithName:@"//corazon3"];
     //Cosas de la tienda
-    _tienda = (SKSpriteNode*) [self childNodeWithName:@"Tienda"]; //La tienda
-    _entrarTienda = (SKSpriteNode*) [self childNodeWithName:@"//EntrarTienda"]; //Botón para entrar a la tienda
     _menuTienda = (SKSpriteNode*) [self childNodeWithName:@"//MenuTienda"]; //El menu de la propia tienda
-    //Guardar y salir
+    //Las opciones del menú dentro del juego (por defecto estarán escondidas)
+    _guardar = (SKSpriteNode*) [self childNodeWithName:@"//Guardar"];
+    _guardar.hidden = true;
+    _salir = (SKSpriteNode*) [self childNodeWithName:@"//Salir"];
+    _salir.hidden = true;
     _guardarYSalir = (SKSpriteNode*) [self childNodeWithName:@"//GuardarYSalir"];
     _guardarYSalir.hidden = true;
     //Cámara
     _camara = (SKCameraNode*) [self childNodeWithName:@"camara"];
     //Monedas
     _labelMonedas = (UILabel*) [self childNodeWithName:@"//monedas"];
+    
+    _personaje.texture = [SKTexture textureWithImageNamed:@"idle"];
 }
+
+
 
 -(void)cargarTodasLasAnimaciones{
     
@@ -264,10 +273,7 @@
     _personaje.physicsBody.contactTestBitMask = personajeCategoria | mundoCategoria;
     _personaje.physicsBody.collisionBitMask = mundoCategoria;
     
-    //Las colisiones que posee la tienda
-    _tienda.physicsBody.categoryBitMask = tiendaCategoria;
-    _tienda.physicsBody.contactTestBitMask = personajeCategoria | mundoCategoria;
-    _tienda.physicsBody.collisionBitMask = mundoCategoria;
+ 
 }
 
 -(void)inicializaLosBooleanos{
@@ -277,6 +283,9 @@
     estoyQuieto = true; //Estamos quietos
     estoyTransformado = false; //No empezamos transformados
     estoyVivo = true; //Empezamos vivos
+    bicho1Muerto = false;
+    _menuTienda.hidden=true;
+    puedoPerderVida = true;
 }
 
 -(void)correr{
@@ -400,6 +409,7 @@
         SKAction *actionSequence = [SKAction sequence:@[sacarMedallon,resize,transformacion,liche]];
         
         [_personaje runAction:actionSequence];
+        
     }
 }
 
@@ -415,7 +425,7 @@
     estoyVivo = false;
     
      [_monstruo1 removeFromParent];
-     [_monstruo2 removeFromParent];
+    
 }
 
 
@@ -476,27 +486,32 @@
 
 - (void)update:(NSTimeInterval)currentTime {
     
-    _labelMonedas.text = [NSString stringWithFormat:@"%ld",_monedas];
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_async(queue, ^{
+        
+        [self camaraSigueme];
+        
+        if(estoyApretando){
+            [ _personaje runAction:mover];
+        }
+        
+        if(bicho1Muerto){
+            
+            [self addMonster];
+            bicho1Muerto=false;
+            
+        }
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+             _labelMonedas.text = [NSString stringWithFormat:@"%ld",_monedas];
+    
+        });
+    });
+    
+      [self sigueAlJugador:_monstruo1];
 
-    //La cámara seguirá al jugador en todo momento
-    [self camaraSigueme];
-    
-    [self sigueAlJugador:_monstruo1];
-    [self sigueAlJugador:_monstruo2];
-    
-    //Si estamos apretando algun boton
-    if(estoyApretando){
-        [ _personaje runAction:mover];
-    }
-    
-    //Si el personaje "colisiona" con la tienda podrá realizar compras
-    if (CGRectIntersectsRect(_personaje.frame, _tienda.frame)){
-        _entrarTienda.hidden = false;
-    } else {
-        //Sino el botón de compra estará deshabilitado
-        _entrarTienda.hidden = true;
-        _menuTienda.hidden = true;
-    }
 }
 
 
@@ -556,10 +571,11 @@
       
         estoyQuieto = false;
         [self saltar];
+        [self pasarDeEscena];
     }
     
     //Si el botón para entrar a la tienda está visible, podremos pulsar en él para comprar
-    if (!_entrarTienda.hidden && [touchedNode.name isEqualToString:@"EntrarTienda"] && estoyVivo) {
+    if ( [touchedNode.name isEqualToString:@"EntrarTienda"] && estoyVivo) {
         _menuTienda.hidden = false;
         //Se escuchará el sonidito de entrar
        // [self runAction:[SKAction playSoundFileNamed:@"EntrarTienda.wav" waitForCompletion:NO]];
@@ -577,6 +593,8 @@
         [self pausaElJuego];
     } else if (![touchedNode.name isEqualToString:@"GuardarYSalir"] && ![touchedNode.name isEqualToString:@"Options"]) {
         self.paused = false;
+        _guardar.hidden = true;
+        _salir.hidden = true;
         _guardarYSalir.hidden = true;
     }
     
@@ -585,11 +603,15 @@
         [self guardar];
         exit(0);
     }
+    
+    
 }
 
 - (void)pausaElJuego {
     //Se pausará el juego y entrará en acción el menú de configuración básico
     self.paused = true;
+    _guardar.hidden = false;
+    _salir.hidden = false;
     _guardarYSalir.hidden = false;
     //Si la tienda estuviera abierta, se cerraría (vamos, ocultarla)
     if (!_menuTienda.hidden) {
@@ -634,6 +656,7 @@
     secondBody = contact.bodyB;
     
     //Si el personaje llega a atacar a los monstruos o al revés
+    
     if (firstBody.categoryBitMask == monstruoCategoria || secondBody.categoryBitMask == monstruoCategoria){
         
         if(estoyAtacando && orientacionDelPersonaje!=orientacionDelMonstruo){
@@ -641,17 +664,23 @@
             [secondBody.node removeFromParent];
             _monedas ++;
             _labelMonedas.text = [NSString stringWithFormat:@"%ld",_monedas];
+            bicho1Muerto=true;
             
-        } else {
+        } else if(estoyAtacando==false && estoyTransformado==false){
             
-            _vida -= 1;
-            [self compruebaVida];
-            
+
+            [self perderVida];
+           
+        
         }
+        
     }
 }
 
 - (void)addMonster {
+    
+    int r = arc4random_uniform(2);
+    
     _monstruo1 = [SKSpriteNode spriteNodeWithImageNamed:@"monster"];
     _monstruo1.size = CGSizeMake(70, 57);
     _monstruo1.physicsBody = [SKPhysicsBody bodyWithTexture:_monstruo1.texture size:CGSizeMake(_monstruo1.size.width, _monstruo1.size.height)];
@@ -666,30 +695,21 @@
     _monstruo1.physicsBody.categoryBitMask = monstruoCategoria;
     _monstruo1.physicsBody.collisionBitMask = personajeCategoria;
     _monstruo1.physicsBody.fieldBitMask = personajeCategoria;
-    //
-    _monstruo1.zPosition = 1;
-    _monstruo1.position = CGPointMake(_camara.position.x, 1);
     
-    [self addChild:_monstruo1];
+    if(r==1){
+       
+        _monstruo1.zPosition = 1;
+        _monstruo1.position = CGPointMake(_personaje.position.x+280, 20);
+        [self addChild:_monstruo1];
+        
+    }else{
+        
+        _monstruo1.zPosition = 1;
+        _monstruo1.position = CGPointMake(_personaje.position.x-220, 20);
+        [self addChild:_monstruo1];
+        
+    }
     
-     _monstruo2 = [SKSpriteNode spriteNodeWithImageNamed:@"monster"];
-    _monstruo2.size = CGSizeMake(70, 57);
-    _monstruo2.physicsBody = [SKPhysicsBody bodyWithTexture:_monstruo2.texture size:CGSizeMake(_monstruo2.size.width, _monstruo2.size.height)];
-    _monstruo2.physicsBody.allowsRotation = false;
-    _monstruo2.physicsBody.pinned = false;
-    _monstruo2.physicsBody.affectedByGravity = true;
-    _monstruo2.physicsBody.dynamic=true;
-    _monstruo2.physicsBody.friction =1.0;
-    _monstruo2.physicsBody.restitution =0.2;
-    _monstruo2.physicsBody.mass = 0.03;
-    //Colisiones
-    _monstruo2.physicsBody.categoryBitMask =monstruoCategoria;
-    _monstruo2.physicsBody.collisionBitMask =personajeCategoria;
-    _monstruo2.physicsBody.fieldBitMask = personajeCategoria;
-    //
-    _monstruo2.zPosition = 1;
-    _monstruo2.position = CGPointMake(_camara.position.x+40, 1);
-    [self addChild:_monstruo2];
 }
 
 -(void)sigueAlJugador:(SKSpriteNode*)objeto{
@@ -724,6 +744,16 @@
     skView.showsFPS = true;
     
     [skView presentScene:sceneNode];
+    
+}
+
+-(void)perderVida{
+    
+        _vida -= 1;
+        [self compruebaVida];
+    
+    
+   
 }
 
 @end

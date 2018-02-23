@@ -15,16 +15,17 @@
 @property (nonatomic) SKSpriteNode* personaje;
 @property (nonatomic) SKSpriteNode* personajeLiche;
 @property (nonatomic) SKSpriteNode* monstruo1;
-@property (nonatomic) SKSpriteNode* monstruo2;
-@property (nonatomic) SKSpriteNode* monstruo3;
+
 
 //Cosas de la tienda:
-@property (nonatomic) SKSpriteNode* tienda; //La tienda
-@property (nonatomic) SKSpriteNode* entrarTienda; //Botón de dólar para comprar
+
 @property (nonatomic) SKSpriteNode* menuTienda; //La propia tienda
 @property (nonatomic) SKAudioNode* audioTienda; //Audios para abrir y cerrar la tienda
 //
 
+//Las opciones del menú dentro del juego
+@property (nonatomic) SKSpriteNode* guardar;
+@property (nonatomic) SKSpriteNode* salir;
 @property (nonatomic) SKSpriteNode* guardarYSalir;
 
 @property (nonatomic) SKSpriteNode* corazon1;
